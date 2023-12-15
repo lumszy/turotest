@@ -3,6 +3,7 @@ terraform {
 
   backend "local" {
     path = "~/Documents/turo/terraform.tfstate"
+    #path = "."
   }
 
 }
