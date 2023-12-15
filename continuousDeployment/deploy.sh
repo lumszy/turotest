@@ -92,14 +92,6 @@ git push origin $1
 gh pr create --base $BASE --head $1 --title "$1 Release to Prod" --body "This pull request $1, adds a new feature to the project."
 
 
-# Note: You need to adjust the repository URL and branch name in the URL below
-# Also, this assumes you have appropriate GitHub credentials/configured SSH keys
-# curl -X POST -H "Content-Type: application/json" -d '{
-#   "title": "Update Terraform version",
-#   "body": "Automated update of Terraform version to '"$RELEASE_TAG"'",
-#   "head": $1,
-#   "base": "main"
-# }' https://api.github.com/repos/lumszy/turotest/pulls
 
 
 #https://cli.github.com/manual/gh_repo_create
