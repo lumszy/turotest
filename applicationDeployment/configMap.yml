@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: olumide-configmap
+  namespace: candidate-c
+data:
+  config.html: |
+    <html>
+    <h1>Yayy! this Webpage is served from a configMap!</h1>
+    </br>
+
+    </html
+    <h1>This web page is configMap HTML landing page running Nginx</h1>
+    </html 
+
+  page1.html: |
+    <html>
+    <h1>Yayy! Page1 !</h1>
+    </br>
+
+    </html
+    <h1>This web page is page 1 running Nginx</h1>
+    </html 
+  site1.template: |
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Turo Intervieiw Assessment</title>
+        <style>
+            /* You can include CSS styles here */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+
+            h1 {
+                color: rgb(83, 0, 128);
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Yayy!  Welcome to Sample html Website! </h1>
+        <h1>This web page is housed on a Pod running Nginx on ${HOSTNAME}:${PORT}</h1>
+        <p>This is a simple example of an HTML Website .</p>
+
+        <ul>
+            <li>Turo Assessment - v1</li>
+        </ul>   
+    </body>
+
+    </html>
+# ---
+# apiVersion: v1
+# data:
+#   index.html: "<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"UTF-8\">\n
+#     \   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n
+#     \   <title>Turo Intervieiw Assessment</title>\n    <style>\n        /* You can
+#     include CSS styles here */\n        body {\n            font-family: Arial, sans-serif;\n
+#     \           margin: 20px;\n        }\n\n        h1 {\n            color: rgb(83,
+#     0, 128);\n        }\n    </style>\n</head>\n\n<body>\n    <h1>Yayy!  Welcome to
+#     Sample html Website! </h1>\n    <h1>This web page is housed on a Pod running Nginx
+#     on ${HOSTNAME}:${PORT}</h1>\n    <p>This is a simple example of an HTML Website
+#     .</p>\n\n    <ul>\n        <li>Turo Assessment - v1</li>\n    </ul>   \n</body>\n\n</html>\n"
+# kind: ConfigMap
+# metadata:
+#   name: indexHTML-configmap
+#   namespace: candidate-c

@@ -1,0 +1,56 @@
+server {
+    listen       80;
+    listen  [::]:80;
+    server_name  localhost olumide-ext.test-subaccount-1-v02.test-subaccount-1.rr.mu;
+ 
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+    
+    #location /page1.html {
+    #    return 200
+    #}
+
+    #redirect 
+    location /page1.html {
+        return 301 /page2.html ;
+    }
+
+    #rewrite ^/page1$ https://olumide-ext.test-subaccount-1-v02.test-subaccount-1.rr.mu/page2.html redirect;
+    #rewrite ^/page1.html$ http://localhost/page2.html redirect;
+    
+    # redirect page1.html to page2.html
+    #
+    #error_page     /page2.html;
+    #location = /page2.html {
+    #    root   /usr/share/nginx/html;
+    #}
+
+    #access_log  /var/log/nginx/host.access.log  main;
+
+
+    #error_page  404              /404.html;
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
