@@ -37,7 +37,9 @@ else
 
     # Clone the repository if it doesn't exist locally
     #git clone --branch "$branchName" --single-branch "$repositoryURL"
-    git clone $repositoryURL $branchName
+    #git clone $repositoryURL $branchName
+    git checkout -b $branchName 
+    git pull origin main
     
     # Change into the cloned repository directory
     #cd "$(basename "$repositoryURL" .git)"
