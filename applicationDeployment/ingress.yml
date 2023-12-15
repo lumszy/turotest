@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: olumide-public
+  namespace: candidate-c
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    external-dns.alpha.kubernetes.io/hostname: olumide-ext.test-subaccount-1-v02.test-subaccount-1.rr.mu    
+spec:
+  ingressClassName: nginx
+  # tls:
+  # - hosts:
+  #   - olumide-public.test-subaccount-1-v02.test-subaccount-1.rr.mu
+  #   secretName: nginx-server-secret
+  rules:
+  - host: olumide-ext.test-subaccount-1-v02.test-subaccount-1.rr.mu
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: "olumide-svc"
+            port:
+              name: "https"

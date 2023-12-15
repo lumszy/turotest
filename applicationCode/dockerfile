@@ -1,0 +1,16 @@
+FROM nginx:alpine
+
+COPY ./*.html /usr/share/nginx/html/
+#COPY page1.html /usr/share/nginx/html/page1.html
+#COPY page2.html /usr/share/nginx/html/page2.html
+RUN mkdir -p /tmp/share/nginx/templates /tmp/olumide && ln -s /usr/share/nginx/html/index.html /tmp/share/nginx/templates/index.html.template \
+    && chown :nginx /tmp/olumide && chown -R :nginx /tmp/share/nginx/templates \
+    && chmod a+rwx /tmp/olumide \
+    && chmod a+rwx /tmp/share/nginx/templates
+
+COPY redirect.txt /etc/nginx/conf.d/default.conf
+
+
+EXPOSE 80
+
+

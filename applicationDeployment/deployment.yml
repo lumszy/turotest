@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: olumide-deployment
+  namespace: candidate-c
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+      annotations:
+        injector.nsm.nginx.com/auto-inject: "enabled"
+    spec:
+      containers:
+        - name: webserver
+          image: lumszy/turotest:v4
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "8Mi"
+              cpu: "2m"
+            limits:
+              memory: "32Mi"
+              cpu: "32m"
+          ports:
+            - containerPort: 80
+              name: "http"
+          volumeMounts:
+            - name: html
+              mountPath: /usr/share/nginx/html/config.html
+              subPath: config.html
+              # - name: html
+              #   mountPath: /tmp/share/nginx/templates/
+              #   subPath: site1.template
+          env:
+            - name: SERVER_NAME
+              value: 'olumide-ext.test-subaccount-1-v02.test-subaccount-1.rr.mu'
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NGINX_ENVSUBST_TEMPLATE_DIR
+              value: /tmp/share/nginx/templates #/usr/share/nginx/templates/index.html
+            - name: NGINX_ENVSUBST_OUTPUT_DIR
+              value: /tmp/share/nginx/templates/index.html #/tmp/share/nginx/templates/
+              #value: /tmp/olumide
+            - name: NGINX_ENVSUBST_TEMPLATE_SUFFIX
+              value: index.html.template
+              # valueFrom:
+              #   configMapKeyRef:
+              #     name: olumide-configmap
+              #     key: index.html
+            - name: PORT
+              value: "80"
+      volumes:
+        - name: "html"
+          configMap:
+            name: olumide-configmap
+      # - name: index
+      #   configMap:
+      #     name: indexHTML-configmap
