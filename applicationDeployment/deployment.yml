@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: webserver
-          image: lumszy/turotest:v16
+          image: lumszy/turotest:v20
           imagePullPolicy: Always
           resources:
             requests:
