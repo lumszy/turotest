@@ -32,7 +32,8 @@ export branchName=$1
 
 echo "####### ####### ####### ####### ######### ###################"
 echo "##### Check if release branch exists locally                #"
-echo "############### ####### ####### #############################
+echo "############### ####### ####### #############################"
+
 
 # Check if the branch exists locally
 if git rev-parse --verify --quiet "$branchName" > /dev/null; then
@@ -109,7 +110,7 @@ git commit -m "Deploy release version $RELEASE_TAG"
 echo "running git commit is completed"
 
 # Push the changes to the remote branch 
-git push origin $1
+git push origin #$1
 echo "Push the changes to the remote branch completed"
 
 # Create a pull request
