@@ -110,7 +110,7 @@ git commit -m "Deploy release version $RELEASE_TAG"
 echo "running git commit is completed"
 
 # Push the changes to the remote branch 
-git push origin #$1
+git push origin $1
 echo "Push the changes to the remote branch completed"
 
 # Create a pull request
