@@ -24,28 +24,28 @@ export BASE=main
 
 # Clone Application repo
 echo "Git Clone application repo"
-gh repo clone git@github.com:lumszy/turotest.git testing
+gh repo clone git@github.com:lumszy/turotest.git .
 
-cd testing
 
 #Create & checkout to release branch"
 #echo "Checkout to release branch"
 git checkout -b $1
 
+cd turotest
 
 # Current image tag 
-export current_tag=$(yq -e '.spec.template.spec.containers[0].image' ../applicationDeployment/deployment.yml)
+export current_tag=$(yq -e '.spec.template.spec.containers[0].image' applicationDeployment/deployment.yml)
 #echo $current_tag
 
 
 # Update the deployment manifest with the new image tag
 #sed -i "s/$current_tag/$RELEASE_TAG/" ../applicationDeployment/deployment.yml
-yq -e ".spec.template.spec.containers[0].image = \"$RELEASE_TAG\"" -i ../applicationDeployment/deployment.yml
+yq -e ".spec.template.spec.containers[0].image = \"$RELEASE_TAG\"" -i applicationDeployment/deployment.yml
 
 
 # Run release (Continuous deployment)
 echo "Deploying RELEASE_TAG" $RELEASE_TAG
-cd ../terraform-deployment
+cd terraform-deployment
 terraform init
 terraform plan -out=tfplan
 terraform apply tfplan 
