@@ -71,7 +71,7 @@ yq -e ".spec.template.spec.containers[0].image = \"$RELEASE_TAG\"" -i applicatio
 
 # Run release (Continuous deployment)
 echo "Deploying RELEASE_TAG" $RELEASE_TAG
-cd terraform-deployment
+cd terraformDeployment
 terraform init
 terraform plan -out=tfplan
 terraform apply tfplan 
