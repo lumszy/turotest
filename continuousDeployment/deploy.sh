@@ -22,16 +22,42 @@ export DOCKER_REPO="lumszy/turotest"
 export RELEASE_TAG=$DOCKER_REPO:$1
 export BASE=main
 
+export repositoryURL=git@github.com:lumszy/turotest.git
+export branchName=$1
+
+# Check if the branch exists locally
+if git rev-parse --verify --quiet "$branchName" > /dev/null; then
+    echo "Branch $branchName exists locally."
+    # Perform actions for an existing branch
+    # For example, switch to the existing branch
+    git checkout "$branchName"
+    git pull origin main
+else
+    echo "Branch $branchName does not exist locally."
+
+    # Clone the repository if it doesn't exist locally
+    #git clone --branch "$branchName" --single-branch "$repositoryURL"
+    git clone $repositoryURL $branchName
+    
+    # Change into the cloned repository directory
+    #cd "$(basename "$repositoryURL" .git)"
+
+    # Additional actions for a newly cloned repository, if needed
+fi
+echo Done
+
+
+
 # Clone Application repo
-echo "Git Clone application repo"
-gh repo clone git@github.com:lumszy/turotest.git .
+# echo "Git Clone application repo"
+# gh repo clone git@github.com:lumszy/turotest.git .
 
 
 #Create & checkout to release branch"
 #echo "Checkout to release branch"
-git checkout -b $1
+#git checkout -b $branchName
 
-cd turotest
+#cd turotest
 
 # Current image tag 
 export current_tag=$(yq -e '.spec.template.spec.containers[0].image' applicationDeployment/deployment.yml)
@@ -66,14 +92,6 @@ git push origin $1
 gh pr create --base $BASE --head $1 --title "$1 Release to Prod" --body "This pull request $1, adds a new feature to the project."
 
 
-# Note: You need to adjust the repository URL and branch name in the URL below
-# Also, this assumes you have appropriate GitHub credentials/configured SSH keys
-# curl -X POST -H "Content-Type: application/json" -d '{
-#   "title": "Update Terraform version",
-#   "body": "Automated update of Terraform version to '"$RELEASE_TAG"'",
-#   "head": $1,
-#   "base": "main"
-# }' https://api.github.com/repos/lumszy/turotest/pulls
 
 
 #https://cli.github.com/manual/gh_repo_create
